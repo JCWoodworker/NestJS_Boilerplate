@@ -1,0 +1,65 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+
+.index-container {
+  margin-top: 10rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid white;
+  border-radius: 1rem;
+  width: 50vws;
+}
+
+input {
+  width: 100%;
+  height: 50px;
+  padding: 0.5rem;
+  border: 2px solid white;
+  border-radius: 0.4rem;
+}
+
+
+.reset-password-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.reset-password-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  gap: 0.5rem;
+}
+
+.reset-password-button {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  border: 3px solid aliceblue;
+}
+
+.reset-password-button:hover {
+  opacity: 0.8;
+  background-color: aquamarine;
+  color: black
+}
+
+.reset-password-button:active {
+  opacity: 0.6;
+}
