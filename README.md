@@ -1,29 +1,58 @@
 # JC's Nest.JS boilerplate
 
-## This README is a work in progress, and is more of a notebook for me while I build this API
+## Some Quick Notes
 
-* Please be patient while I construct a proper readme
+* Please be patient while I construct a proper readme - You deserve a MUCH more in-depth explanation, but it's still a work in progress.
 
-* Current features include:
-  * PostgreSQL integration
-    * TypeORM
-    * Migrations
-  * Authentication and Authorization
-    * Sign up with email and password OR use Google
-    * Successful sign in creates JWT access and refresh tokens
-      * Currently returns in the following format:
+## How to set this up to run locally
+
+* Clone this repo
+* Make sure you are using Node version >= 20.x
+* Run ```yarn install```
+* Set up your .env file with the proper variables
+* Set up a local postgres database and get your database URL
+  * Run ```yarn build```
+  * Run ```yarn migrate:run```
+* run ```yarn start:dev``` or ```yarn start:debug```
+
+## Current features
+
+* PostgreSQL integration
+  * TypeORM
+  * Migrations
+* Authentication and Authorization
+  * Sign up with email and password OR use Google
+  * Successful sign in creates JWT access and refresh tokens
+    * Currently returns in the following format:
         {
           "access_token": "SomeLongAssAccessToken",
           "refresh_token": "SomeLongAssRefreshToken"
         }
-      * Refresh ID is stored in the database to check against the refresh token
-    * Refresh endpoint checks DB for matching refresh ID and returns new access and refresh tokens
-  * Pre-built endpoints for CRUD operations on Users
-    * Get all users
-    * Get current active user
-  * All endpoints globally set to require bearer authentication
-    * Guard set up to open any endpoint or an entire controller to public access
-  * User role guard lets you set any endpoint or controller to "Admin" or "Basic" user access
+    * Refresh ID is stored in the database to check against the refresh token
+  * Refresh endpoint checks DB for matching refresh ID and returns new access and refresh tokens
+* Pre-built endpoints:
+  * Users - all GET requests
+    * ```/users/all-users``` - Get all users (Admin only)
+    * ```/users/user-profile```  - Get current active user (Basic or Admin)
+  * Authentication - all POST requests
+    * ```/authentication/sign-up``` - Sign Up (public access)
+      * body = {
+        "email": "userEmail",
+        "password": "userPassword",
+      }
+    * ```/authentication/sign-in``` - Sign In (public access)
+      * body = {
+        "username": "userEmail",
+        "password": "userPassword",
+      }
+    * ```/authentication/refresh-tokens``` - Refresh Tokens (public access, must send jwt in body)
+      * body = {
+        "refresh_token": "someLongAssRefreshTokenGoesHere"
+      }
+
+* All endpoints are globally set to require bearer authentication
+  * Guard set up to open any endpoint or an entire controller to public access
+* User role guard lets you set any endpoint or controller to "Admin" or "Basic" user access (or both)
 
 --
 
@@ -52,16 +81,7 @@
 
 ## Pre-built endpoints
 
-Multiple user endpoints have been set up at '/users':
-
-* GET:
-  * /getallusers --> returns an array of all users (id, username, email)
-  <!-- * /:id returns one specific user by id -->
-  <!-- * /:username --> returns one specific user by username --> -->
-* POST
-  * / --> creates a new user if username and/or email doesn't already exist
-* PATCH, DELETE
-  <!-- * /:id --> updates or deletes a user by id -->
+--
 
 * NEST.JS VALIDATION - <https://docs.nestjs.com/techniques/validation>
 
@@ -109,12 +129,6 @@ JWT_REFRESH_TOKEN_TTL=this-should-be-a-number-in-seconds
 * Set up your project with Google OAuth - <https://console.cloud.google.com/apis/credentials>
 GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret
-
-DATABASE_HOST
-DATABASE_PORT
-DATABASE_USERNAME
-DATABASE_PASSWORD
-DATABASE_NAME
 
 * URL Structure: postgres://{username}:{password}@{host}:{port}/{database name}
 DATABASE_URL
