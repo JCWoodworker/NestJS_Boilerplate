@@ -36,7 +36,8 @@ export class AuthenticationController {
     return this.authService.refreshTokens(refreshTokenDto);
   }
 
-  // This code can be used for http only cookies
+  // This code can be used to return access and refresh tokens in http only cookies
+
   // @HttpCode(HttpStatus.OK)
   // @Post('sign-in')
   // async signIn(
