@@ -62,7 +62,8 @@ export class AuthenticationService {
     if (!isEqual) {
       throw new UnauthorizedException('Password does not match');
     }
-    return await this.generateTokens(user);
+    const tokens = await this.generateTokens(user);
+    return { tokens, user: { email: user.email, id: user.id } };
   }
 
   async generateTokens(user: Users) {
@@ -91,7 +92,7 @@ export class AuthenticationService {
     };
   }
 
-  private async signToken<T>(userId: number, expiresIn: number, payload?: T) {
+  private async signToken<T>(userId: string, expiresIn: number, payload?: T) {
     return await this.jwtService.signAsync(
       {
         sub: userId,
